@@ -3,7 +3,7 @@ add_executable(ex01
 
 add_dependencies(ex01 genalg)
 target_include_directories(ex01 PRIVATE
-  ${PROJECT_SOURCE_DIR}/src/genalg)
+  ${PROJECT_SOURCE_DIR}/src)
 
 if(MATPLOTPLUSPLUS)
   target_link_libraries(ex01 PUBLIC matplot)
