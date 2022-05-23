@@ -26,8 +26,11 @@
 using genalg::GeneticAlgorithm;
 
 using genalg::algorithm::FitnessFunction;
+
 using genalg::algorithm::BestLimit;
 using genalg::algorithm::GenerationLimit;
+using genalg::algorithm::CombinationLimit;
+
 using genalg::algorithm::Options;
 
 using genalg::operators::TournamentSelection;
@@ -42,7 +45,7 @@ using Fitness = double;
 
 using Solution = Individual<Genome, Fitness>;
 
-using TerminationMethod = BestLimit<Solution>;
+using TerminationMethod = CombinationLimit<Solution>;
 
 using SelectionMethod = TournamentSelection<Solution>;
 using CrossoverMethod = MultiPointCrossover<Genome>;
@@ -87,7 +90,11 @@ main() {
 
     ga.initialize(population);
 
-    TerminationMethod termination(100);
+    TerminationMethod termination;
+
+    termination.add(BestLimit<Solution>(100));
+    termination.add(GenerationLimit<Solution>(500));
+
     ga.run(termination);
 
     std::cout << "GENERATION " << ga.generations().size()
